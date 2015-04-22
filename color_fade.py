@@ -1,4 +1,3 @@
-from Xlib import display
 from time import sleep
 import math
 from math import atan2, degrees, pi
@@ -39,7 +38,7 @@ while 1:
 	currX = startX
 	currY = startY
 	while 1:	#move current color until position is at or past endX
-		sleep(.55)
+		sleep(.6)
 		currX += dX
 		currY += (slope * xInc)
 
