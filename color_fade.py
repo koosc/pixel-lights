@@ -59,6 +59,7 @@ while 1:
 		r = convert_color(c, sRGBColor)
 		hexColor = r.get_rgb_hex()
 
+		subprocess.Popen("echo lol | sudo -S ectool lightbar seq stop", shell=True)
 		subprocess.Popen("echo lol | sudo -S ectool lightbar 4 " + hexColor[1:3] + ' ' + hexColor[5:] + ' ' + hexColor[3:5], shell=True)
 
 
