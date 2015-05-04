@@ -21,5 +21,5 @@ do
 	    fi
     fi
 
-    sleep 90 	#Check again in 20 seconds
+    sleep 90 	#Check again in 90 seconds
 done
