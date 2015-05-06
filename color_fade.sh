@@ -1,23 +1,30 @@
 #!/bin/bash
 #Automatically turn color to fading when charger is plugged in
 
-lightOn=0
+lightFast=0
+
+sudo python3 /home/chris/pixel/pixel-lights/color_fade.py &
+    RUNNING_PID=$!
+
 while true
 do
 	on_ac_power
-    if [ "$?" -eq 0 ] && [ "$lightOn" -eq 0 ]	#turn light script on if on ac power
+    if [ "$?" -eq 0 ] && [ "$lightFast" -eq 0 ]	#turn light script on if on ac power
     then
-    	sleep 12	#wait for normal power seq to finish
-    	sudo ectool lightbar seq stop	#stop default seq
+    	sleep 12	#wait for normal power seq to finish in cast it just turned on
+        kill -KILL "$RUNNING_PID"   #end current script running
+    	sudo ectool lightbar seq stop	#Ensure default seq ia not running
     	python3 /home/chris/pixel/pixel-lights/color_fade.py &
-		PID1=$!
-		lightOn=1
-    elif [ "$lightOn" -eq 1 ]; then	#kill script if disconnected
+		RUNNING_PID=$!
+		lightFast=1
+    elif [ "$lightFast" -eq 1 ]; then	#kill script if disconnected
     	on_ac_power
     	if [ "$?" -eq 1 ]; then
-	    	kill -KILL "$PID1"
-	    	lightOn=0
-	    	sudo ectool lightbar seq run	#set lightbar back to normal colors
+	    	kill -KILL "$RUNNING_PID"
+	    	lightFast=0
+	    	# sudo ectool lightbar seq run	#set lightbar back to normal colors
+            sudo python3 /home/chris/pixel/pixel-lights/color_fade.py &
+                RUNNING_PID=$!
 	    fi
     fi
 
