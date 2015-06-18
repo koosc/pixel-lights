@@ -37,6 +37,8 @@ def main():
 		bounceHSV()
 	elif setting == 'cycle':
 		circleHSV()
+	else:
+		exit()	#should not be able to reach this
 
 
 
@@ -52,8 +54,9 @@ def setColor(hexValue):		#set LEDs to passed in hex value
 
 
 def circleHSV():	#loop along outer edge of HSV colors
-	deg = 0		#start at degree 0
+	deg = random.randint(0, 359)		#start at degree 0
 	increment = .6
+
 	while 1:
 		if deg > 360: deg = 0
 		c = colormath.color_objects.HSVColor(deg, 1, .9)
@@ -65,7 +68,7 @@ def circleHSV():	#loop along outer edge of HSV colors
 
 		sleep(delay)
 
-def bounceHSV():
+def bounceHSV():	#bounce around the HSV circle
 
 	startX = -1
 	startY = 0
@@ -87,7 +90,6 @@ def bounceHSV():
 		currX = startX
 		currY = startY
 		while 1:	#move current color until position is at or past endX
-			# sleep(.55)
 			sleep(delay)
 			currX += dX
 			currY += (slope * xInc)
