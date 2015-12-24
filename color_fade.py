@@ -31,7 +31,7 @@ setting = args.setting
 def main():
 	#run chosen setting
 
-	subprocess.Popen("echo lol | sudo -S ectool lightbar seq stop", shell=True)	#stop lightbar from normal seq
+	subprocess.Popen("ectool lightbar seq stop", shell=True)	#stop lightbar from normal seq
 
 	if setting == 'random':
 		bounceHSV()
@@ -50,7 +50,7 @@ def pol2cart(rho, phi):
     return(x, y)
 
 def setColor(hexValue):		#set LEDs to passed in hex value
-	subprocess.Popen("echo lol | sudo -S ectool lightbar 4 " + hexValue[1:3] + ' ' + hexValue[5:] + ' ' + hexValue[3:5], shell=True)
+	subprocess.Popen("ectool lightbar 4 " + hexValue[1:3] + ' ' + hexValue[5:] + ' ' + hexValue[3:5], shell=True)
 
 
 def circleHSV():	#loop along outer edge of HSV colors
